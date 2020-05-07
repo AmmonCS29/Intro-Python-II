@@ -34,6 +34,21 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
+
+## Items added to rooms
+
+sword = Item("Sword", "defending")
+axe = Item("Axe", "battle axe")
+torch = Item("Torch", "torch")
+dagger = Item("Dagger", "hunting")
+gold = Item("Gold!!!", "You'll be rich forever")
+
+room['outside'].items = []
+room['foyer'].items = [torch]
+room['overlook'].items = [dagger]
+room['narrow'].items = [axe, sword]
+room['treasure'].items = [gold]
+
 #
 # Main
 #
@@ -51,8 +66,24 @@ newPlayer = Player('Ammon', room['outside'])
 #
 # If the user enters "q", quit the game.
 while True:
-    action = input('Enter an action: ')
+    action = input('Enter an action: ').split(' ')
     
+    if len(action) == 1:
+        for i in action:
+            action = i
+            print(action)
+    elif len(action) == 2:
+        action = f'{action[0]} {action[1]}'
+        print(action)
+        
+        # for i in action:
+        #     new_action += f' {i}'
+        #     print(new_action)
+
+    if action == "add item":
+        newPlayer.current_room.add_item(torch)
+        # print(newPlayer.current_room.items)
+
     if action == 'start':
         if newPlayer.current_room:
             print(f'{newPlayer.current_room}')
@@ -89,10 +120,11 @@ while True:
        exit()
     
     if action == 'look':
-        soccer_ball = Item("soccer ball", "a ball that is white with black hexagon spots on it ")
-        newPlayer.current_room.add_item(soccer_ball)    
-        print(newPlayer.current_room.items)
-    
+        if newPlayer.current_room.items:
+            for obj in newPlayer.current_room.items:    
+                print(obj.name)
+        else:
+            print('There are no items in this room')
 
     
 

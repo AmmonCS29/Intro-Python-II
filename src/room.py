@@ -3,7 +3,7 @@
 from item import Item
 
 class Room:
-    def __init__(self, name, description,):
+    def __init__(self, name, description):
         self.name = name
         self.description = description
         self.n_to = None
@@ -18,3 +18,14 @@ class Room:
 
     def add_item(self, item):
         self.items.append(item)
+
+# Testing functions
+# outside = Room('outside', 'the caves forward the cliff is backward')
+# sword = Item('sword', 'black and yellow')
+# outside.add_item(sword)
+
+# for obj in outside.items:
+#     print(obj.name, obj.description)
+
+
+

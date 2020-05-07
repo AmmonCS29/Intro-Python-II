@@ -12,7 +12,7 @@ class Player:
         self.inventory.append(item)
 
 
-player1 = Player("Arash", "outside")
+# player1 = Player("Arash", "outside")
 
 
-print(player1)
+# print(player1)
