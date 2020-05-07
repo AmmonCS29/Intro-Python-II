@@ -37,11 +37,11 @@ room['treasure'].s_to = room['narrow']
 
 ## Items added to rooms
 
-sword = Item("Sword", "defending")
-axe = Item("Axe", "battle axe")
-torch = Item("Torch", "torch")
-dagger = Item("Dagger", "hunting")
-gold = Item("Gold!!!", "You'll be rich forever")
+sword = Item("sword", "defending")
+axe = Item("axe", "battle axe")
+torch = Item("torch", "light me on fire")
+dagger = Item("dagger", "Used to kill or hunting")
+gold = Item("gold!!!", "You'll be rich forever")
 
 room['outside'].items = []
 room['foyer'].items = [torch]
@@ -71,18 +71,28 @@ while True:
     if len(action) == 1:
         for i in action:
             action = i
-            print(action)
-    elif len(action) == 2:
-        action = f'{action[0]} {action[1]}'
-        print(action)
-        
-        # for i in action:
-        #     new_action += f' {i}'
-        #     print(new_action)
+     
+    if len(action) == 2:
+        action_item = action[1]
+        action = action[0]
+       
+    if action == "get" or action == "take":
+        for i in newPlayer.current_room.items:
+            if i.name == action_item:
+                action_item = i
+                newPlayer.add_inventory(action_item)
+                print(f"{action_item.name} was added to your inventory")
+            else:
+                print(f"{action_item} does not exist, look for items in room")
+        # print(action_item)
 
-    if action == "add item":
-        newPlayer.current_room.add_item(torch)
-        # print(newPlayer.current_room.items)
+    if action == "drop" or action == "remove":
+        newPlayer.remove_inventory(action_item)
+        print(f"{action_item} was removed from your inventory")
+
+    if action =='inventory' or action == 'i':
+        for i in newPlayer.inventory:
+            print(i)
 
     if action == 'start':
         if newPlayer.current_room:

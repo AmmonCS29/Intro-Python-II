@@ -18,6 +18,7 @@ class Room:
 
     def add_item(self, item):
         self.items.append(item)
+    
 
 # Testing functions
 # outside = Room('outside', 'the caves forward the cliff is backward')
