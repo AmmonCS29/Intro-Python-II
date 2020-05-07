@@ -1,5 +1,6 @@
 from room import Room
 from player import Player
+from item import Item
 # Declare all the rooms
 
 room = {
@@ -83,8 +84,16 @@ while True:
             print(f'{newPlayer.current_room}')
         else:
             print('no path in that direction')
+    
     if action == 'q':
        exit()
+    
+    if action == 'look':
+        soccer_ball = Item("soccer ball", "a ball that is white with black hexagon spots on it ")
+        newPlayer.current_room.add_item(soccer_ball)    
+        print(newPlayer.current_room.items)
+    
+
     
 
     
