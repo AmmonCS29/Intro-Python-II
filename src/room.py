@@ -22,7 +22,8 @@ class Room:
     
     def on_take(self, item):
         self.items.remove(item)
-        print(f"you have picked up {item.name} \n")
+        print(f"{item.name} has been taken from the room \n")
+    
     
 
 # Testing functions

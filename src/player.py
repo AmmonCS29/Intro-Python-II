@@ -15,6 +15,7 @@ class Player:
     def remove_inventory(self, item):
         self.inventory.remove(item)
         print(f"{item.name} was removed from your inventory \n")
+    
         
 # player1 = Player("Arash", "outside")
 
