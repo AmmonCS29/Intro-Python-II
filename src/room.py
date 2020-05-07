@@ -16,8 +16,13 @@ class Room:
         return f"you are in the {self.name}, {self.description} "
 
 
-    def add_item(self, item):
+    def on_drop(self, item):
         self.items.append(item)
+        print(f"\n{item.name} was added to the room \n")
+    
+    def on_take(self, item):
+        self.items.remove(item)
+        print(f"you have picked up {item.name} \n")
     
 
 # Testing functions

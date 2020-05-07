@@ -66,6 +66,8 @@ newPlayer = Player('Ammon', room['outside'])
 #
 # If the user enters "q", quit the game.
 while True:
+    # print(newPlayer.current_room)
+
     action = input('Enter an action: ').split(' ')
     
     if len(action) == 1:
@@ -76,65 +78,73 @@ while True:
         action_item = action[1]
         action = action[0]
        
-    if action == "get" or action == "take":
+    if action in ['get', 'take']:
         for i in newPlayer.current_room.items:
             if i.name == action_item:
                 action_item = i
+                newPlayer.current_room.on_take(action_item)
                 newPlayer.add_inventory(action_item)
-                print(f"{action_item.name} was added to your inventory")
-            else:
-                print(f"{action_item} does not exist, look for items in room")
-        # print(action_item)
+        else:
+            print(f"{action_item} does not exist, look for items in room")
 
-    if action == "drop" or action == "remove":
-        newPlayer.remove_inventory(action_item)
-        print(f"{action_item} was removed from your inventory")
-
-    if action =='inventory' or action == 'i':
+    if action in ['drop', 'd']:
         for i in newPlayer.inventory:
-            print(i)
+            if i.name == action_item:
+                action_item = i
+                newPlayer.current_room.on_drop(action_item)
+                newPlayer.remove_inventory(action_item)        
+        else:
+            print(f'Cannot drop {action_item}, it is not in your inventory')
+                
+
+    if action in ['inventory', 'i']:
+        if newPlayer.inventory:
+            for i in newPlayer.inventory:
+                print(i)
+        else:
+            print('\ninventory is empty\n')
 
     if action == 'start':
         if newPlayer.current_room:
             print(f'{newPlayer.current_room}')
         else:
-            print('no path in that direction')
+            print('\n no path in that direction \n')
     
     if action == 'n':
         if newPlayer.current_room.n_to:    
             newPlayer.current_room=newPlayer.current_room.n_to
             print(f'{newPlayer.current_room}')
         else: 
-            print('you cannot go north')
+            print('\n you cannot go north \n')
     if action == 's':
         if newPlayer.current_room.s_to:
             newPlayer.current_room=newPlayer.current_room.s_to
             print(f'{newPlayer.current_room}')
         else:
-            print('no path in that direction')
+            print('\nno path in that direction\n')
     if action == 'e':
         if newPlayer.current_room.e_to:
             newPlayer.current_room=newPlayer.current_room.e_to
             print(f'{newPlayer.current_room}')
         else:
-            print('no path in that direction')
+            print('\nno path in that direction\n')
 
     if action == 'w':
         if newPlayer.current_room.w_to:
             newPlayer.current_room=newPlayer.current_room.w_to
             print(f'{newPlayer.current_room}')
         else:
-            print('no path in that direction')
+            print('\n no path in that direction \n')
     
-    if action == 'q':
+    if action in ['q', 'quit','exit']:
        exit()
     
     if action == 'look':
         if newPlayer.current_room.items:
             for obj in newPlayer.current_room.items:    
-                print(obj.name)
+                print(f'\n{obj.name}\n')
         else:
-            print('There are no items in this room')
+            print('\nThere are no items in this room\n')
 
     
 
